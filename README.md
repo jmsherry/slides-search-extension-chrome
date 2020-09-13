@@ -16,3 +16,9 @@
 ## Notes for use
 
 By default this extension accepts a regular expression. If you want to search for `|` (or any other 'special character') you will have to escape it by searching for `\|`.
+
+## Demo
+
+![Usage Demo](demo-video.gif)
+
+([With sound](https://drive.google.com/file/d/1cSUSqHWa9Srx8AuKelpoyypa6Hgzx-An/view))
