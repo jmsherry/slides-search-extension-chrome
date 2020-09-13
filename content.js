@@ -22,7 +22,11 @@ chrome.storage.sync.get(["debug"], function ({ debug }) {
             }
           }
           _logger.log("results", results);
-          port.postMessage({ type: "results", payload: results });
+          port.postMessage({
+            type: "results",
+            payload: results,
+            contentPageURL: window.location.href,
+          });
           break;
         case "navigate":
           window.location.hash = message.hash;

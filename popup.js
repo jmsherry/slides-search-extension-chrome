@@ -6,6 +6,12 @@ const connectionWarning = document.getElementById("connection-warning");
 
 let port = null;
 
+function switchActive(target) {
+  const activeItem = resultsList.querySelector(".active");
+  activeItem && activeItem.classList.remove("active");
+  target.closest("li").classList.add("active");
+}
+
 function connect() {
   chrome.storage.sync.get(["debug"], function ({ debug }) {
     const noop = () => {};
@@ -26,19 +32,26 @@ function connect() {
             for (const result of results) {
               const li = document.createElement("li");
               li.classList.add("list-group-item");
+              if (result === message.contentPageURL) {
+                li.classList.add("active");
+              }
               const anchor = document.createElement("a");
               anchor.href = result;
 
               const hash = result.split("#")[1];
               const [empty, track, slide] = hash.split("/");
-              anchor.textContent = `Track ${track}, slide ${slide}`;
+              const span = document.createElement('span');
+              span.textContent = `Track ${track}, slide ${slide}`;
+              anchor.append(span);
 
               anchor.onclick = function (e) {
                 e.preventDefault();
+                switchActive(this.closest('li'));
                 port.postMessage({
                   type: "navigate",
                   hash,
                 });
+                // _logger.log(window.location);
               };
               li.append(anchor);
 
@@ -56,6 +69,9 @@ function connect() {
             resultsList.innerHTML = "";
             resultsList.append(frag);
             break;
+            // case "location":
+            //   switchActive(message.location)
+            // break;
         }
       });
     });
@@ -66,7 +82,7 @@ window.addEventListener("load", (event) => {
   chrome.tabs.executeScript(null, { file: "content.js" }, () => {
     connect(); //this is where I call my function to establish a connection
     chrome.storage.sync.get(["searchTerm"], function (result) {
-      searchBox.value = result.searchTerm;
+      searchBox.value = result.searchTerm || "";
     });
   });
 });
