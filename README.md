@@ -12,6 +12,6 @@
 4. Click 'load unpacked' and point to this directory
 5. Profit...
 
-# Notes for use
+## Notes for use
 
 By default this extension accepts a regular expression. If you want to search for `|` (or any other 'special character') you will have to escape it by searching for `\|`.
