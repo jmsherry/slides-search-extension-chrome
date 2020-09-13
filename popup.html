@@ -1,0 +1,52 @@
+<!DOCTYPE html>
+<html>
+
+<head>
+  <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css"
+    integrity="sha384-JcKb8q3iqJ61gNV9KGb8thSsNjpSL0n8PARn9HuZOnIxN0hoP+VmmDGMN5t9UJ0Z" crossorigin="anonymous">
+  <style>
+    ol,
+    ul {
+      list-style: none;
+    }
+
+    body {
+      min-width: 300px;
+      padding: 0 15px;
+    }
+
+    .resultsList {
+      margin-block-end: 15px;
+    }
+
+    .list-group-item {
+      display: flex;
+      align-items: center;
+    }
+
+    button.delete {
+      margin-inline-start: auto;
+    }
+  </style>
+</head>
+
+<body>
+  <ul id="messages">
+    <li id="connection-warning" class="alert alert-warning">Not connected</li>
+  </ul>
+  <form name="search" autocomplete="on" disabled>
+    <div class="form-group">
+      <label for="searchTerm">Search Term</label>
+      <input type="text" id="searchTerm" aria-role="search" class="form-control" aria-labelledby="help">
+      <p id="help">(Takes regexes. Escape special characters if needs be; <abbr title="exempli gratia">e.g.</abbr><code>\|</code> to search for an actual pipe character.)</p>
+    </div>
+    <div class="form-group">
+      <button class="btn btn-warning" type="reset">Reset</button>
+      <button class="btn btn-primary" type="submit">Search</button>
+    </div>
+  </form>
+  <ol id="resultsList" class="list-group resultsList" aria-live="assertive"></ol>
+  <script src="./popup.js"></script>
+</body>
+
+</html>

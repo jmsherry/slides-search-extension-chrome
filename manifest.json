@@ -1,0 +1,35 @@
+{
+  "name": "Slides.com Search Extension",
+  "version": "1.0",
+  "description": "Allows you to search decks from slides.com",
+  "manifest_version": 2,
+  "author": "James Sherry",
+  "background": {
+    "scripts": ["background.js"],
+    "persistent": false
+  },
+  "permissions": [
+    "declarativeContent",
+    "storage",
+    "activeTab",
+    "tabs",
+    "https://www.slides.com/"
+  ],
+  "content_security_policy": "script-src 'self' 'unsafe-eval'; object-src 'self'",
+  "page_action": {
+    "default_popup": "popup.html",
+    "default_icon": {
+      "16": "./images/16w/logo.png",
+      "32": "./images/32w/logo.png",
+      "48": "./images/48w/logo.png",
+      "128": "./images/128w/logo.png"
+    }
+  },
+  "icons": {
+    "16": "./images/16w/logo.png",
+    "32": "./images/32w/logo.png",
+    "48": "./images/48w/logo.png",
+    "128": "./images/128w/logo.png"
+  },
+  "options_page": "options.html"
+}
