@@ -10,7 +10,8 @@
 2. In your chrome, go to `chrome://extensions/`
 3. Make sure you are in developer mode (switch is top right in the header)
 4. Click 'load unpacked' and point to this directory
-5. Profit...
+5. Pin the extension by pressing the 'jigsaw puzzle piece' next to all the other extensions; scrolling until you find this one and; pressing the 'pin' icon.
+6. Profit...
 
 ## Notes for use
 
