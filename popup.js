@@ -40,13 +40,13 @@ function connect() {
 
               const hash = result.split("#")[1];
               const [empty, track, slide] = hash.split("/");
-              const span = document.createElement('span');
+              const span = document.createElement("span");
               span.textContent = `Track ${track}, slide ${slide}`;
               anchor.append(span);
 
               anchor.onclick = function (e) {
                 e.preventDefault();
-                switchActive(this.closest('li'));
+                switchActive(this.closest("li"));
                 port.postMessage({
                   type: "navigate",
                   hash,
@@ -69,9 +69,6 @@ function connect() {
             resultsList.innerHTML = "";
             resultsList.append(frag);
             break;
-            // case "location":
-            //   switchActive(message.location)
-            // break;
         }
       });
     });
@@ -81,9 +78,33 @@ function connect() {
 window.addEventListener("load", (event) => {
   chrome.tabs.executeScript(null, { file: "content.js" }, () => {
     connect(); //this is where I call my function to establish a connection
-    chrome.storage.sync.get(["searchTerm"], function (result) {
-      searchBox.value = result.searchTerm || "";
-    });
+    chrome.storage.sync.get(
+      ["searchTerm", "darkMode", "highlightMatches"],
+      function ({ searchTerm, darkMode, highlightMatches }) {
+        searchBox.value = searchTerm || "";
+        if (darkMode) {
+          document.documentElement.classList.add("dark");
+        } else {
+          document.documentElement.classList.remove("dark");
+        }
+
+        if (highlightMatches) {
+          const removeHighlightButton = document.createElement("button");
+          removeHighlightButton.classList.add(
+            "btn",
+            "btn-info",
+            "btn-block"
+          );
+          removeHighlightButton.textContent = "Clear Highlighting";
+          removeHighlightButton.onclick = function (e) {
+            port.postMessage({
+              type: "unhighlight",
+            });
+          };
+          resultsList.after(removeHighlightButton);
+        }
+      }
+    );
   });
 });
 

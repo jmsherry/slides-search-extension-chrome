@@ -5,6 +5,10 @@
   <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css"
     integrity="sha384-JcKb8q3iqJ61gNV9KGb8thSsNjpSL0n8PARn9HuZOnIxN0hoP+VmmDGMN5t9UJ0Z" crossorigin="anonymous">
   <style>
+    html {
+      padding: 15px;
+    }
+
     ol,
     ul {
       list-style: none;
@@ -12,11 +16,16 @@
 
     body {
       min-width: 300px;
-      padding: 0 15px;
+    }
+
+    .main-title {
+      font-size: 1.8rem;
     }
 
     .resultsList {
       margin-block-end: 15px;
+      max-height: 250px;
+      overflow: auto;
     }
 
     .list-group-item {
@@ -37,9 +46,7 @@
       border-color: #007bff99;
     }
 
-    .resultsList .list-group-item.active {
-
-    }
+    .resultsList .list-group-item.active {}
 
     @keyframes fadeImage {
       0% {
@@ -87,6 +94,7 @@
     <li id="connection-warning" class="alert alert-warning">Not connected</li>
   </ul>
   <form name="search" autocomplete="on" disabled>
+    <h1 class="main-title">Slides.com Search Tool</h1>
     <div class="form-group">
       <label for="searchTerm">Search Term</label>
       <input type="text" id="searchTerm" aria-role="search" class="form-control" aria-labelledby="help">

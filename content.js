@@ -1,6 +1,43 @@
 // Method: https://www.bennettnotes.com/post/fix-receiving-end-does-not-exist/
 
-chrome.storage.sync.get(["debug"], function ({ debug }) {
+function addHighlights(string, term) {
+  return string.replaceAll(new RegExp(term, "gi"), function (originalTerm) {
+    // console.log('args', arguments);
+    return `<mark class="added">${originalTerm}</mark>`;
+  });
+}
+
+function removeHighlights(string) {
+  return string.replaceAll(
+    new RegExp('<mark class="added">(.*?)</mark>', "gi"),
+    function (result, cg1) {
+      // console.log("args", arguments);
+      return cg1;
+    }
+  );
+}
+
+chrome.storage.sync.get(["debug", "highlightMatches"], function ({
+  debug,
+  highlightMatches,
+}) {
+  if (highlightMatches) {
+    window.addEventListener(
+      "hashchange",
+      () => {
+        const currentSlide = document.querySelector(
+          "section.present:not(.stack)"
+        );
+        chrome.storage.sync.get(["searchTerm"], function ({ searchTerm }) {
+          currentSlide.innerHTML = addHighlights(
+            currentSlide.innerHTML,
+            searchTerm
+          );
+        });
+      },
+      false
+    );
+  }
   const noop = () => {};
   const _logger = debug ? console : { log: noop, error: noop, warn: noop };
   chrome.runtime.onConnect.addListener((port) => {
@@ -31,6 +68,23 @@ chrome.storage.sync.get(["debug"], function ({ debug }) {
         case "navigate":
           window.location.hash = message.hash;
           break;
+        case "highlight": {
+          const currentSlide = document.querySelector(
+            "section.present:not(.stack)"
+          );
+          currentSlide.innerHTML = addHighlights(
+            currentSlide.innerHTML,
+            message.searchTerm
+          );
+          break;
+        }
+        case "unhighlight": {
+          const currentSlide = document.querySelector(
+            "section.present:not(.stack)"
+          );
+          currentSlide.innerHTML = removeHighlights(currentSlide.innerHTML);
+          break;
+        }
       }
     });
   });
