@@ -89,6 +89,7 @@ window.addEventListener("load", (event) => {
         }
 
         if (highlightMatches) {
+          // Remove from current slide
           const removeHighlightButton = document.createElement("button");
           removeHighlightButton.classList.add(
             "btn",
@@ -102,11 +103,24 @@ window.addEventListener("load", (event) => {
             });
           };
           resultsList.after(removeHighlightButton);
+
+          // Remove from all slides (is reapplied on nav, so would need adjustment)
+          // const removeAllHighlightButton = document.createElement("button");
+          // removeAllHighlightButton.classList.add("btn", "btn-info", "btn-block");
+          // removeAllHighlightButton.textContent = "Clear All Highlighting";
+          // removeAllHighlightButton.onclick = function (e) {
+          //   port.postMessage({
+          //     type: "unhighlightAll",
+          //   });
+          // };
+          // removeHighlightButton.after(removeAllHighlightButton);
         }
       }
     );
   });
 });
+
+
 
 searchForm.addEventListener("submit", function (e) {
   const searchTerm = searchBox.value;
