@@ -22,3 +22,10 @@ By default this extension accepts a regular expression. If you want to search fo
 ![Usage Demo](demo-video.gif)
 
 ([With sound](https://drive.google.com/file/d/1cSUSqHWa9Srx8AuKelpoyypa6Hgzx-An/view))
+
+## Files explanation
+
+* **popup** files are for the little dropdown when you click the icon
+* **options** are for the settings page you get to when you right-click on the icon and select 'options'
+* **content.js** is the file that controls what happens in the browser - it is loaded in the window
+* **background.js** is the file that controls when the extension runs by hooking into chrome's internal messaging bus, which receives events, e.g. when the page changes.
