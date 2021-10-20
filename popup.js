@@ -91,11 +91,7 @@ window.addEventListener("load", (event) => {
         if (highlightMatches) {
           // Remove from current slide
           const removeHighlightButton = document.createElement("button");
-          removeHighlightButton.classList.add(
-            "btn",
-            "btn-info",
-            "btn-block"
-          );
+          removeHighlightButton.classList.add("btn", "btn-info", "btn-block");
           removeHighlightButton.textContent = "Clear Highlighting";
           removeHighlightButton.onclick = function (e) {
             port.postMessage({
@@ -119,8 +115,6 @@ window.addEventListener("load", (event) => {
     );
   });
 });
-
-
 
 searchForm.addEventListener("submit", function (e) {
   const searchTerm = searchBox.value;
